@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *todoDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UIView *priorityView;
+@property (weak, nonatomic) IBOutlet UILabel *deadlineLabel;
 
 - (void)updateDisplay;
 

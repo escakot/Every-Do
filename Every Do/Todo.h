@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface Todo : NSObject
 
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *todoDescription;
-@property (assign, nonatomic) NSInteger priority;
+@property (assign, nonatomic) NSUInteger priority;
+@property (strong, nonatomic) NSDate *deadline;
 @property (assign, nonatomic) BOOL isCompleted;
+@property (strong, nonatomic) NSArray<UIColor*> *priorityColors;
 
 -(instancetype)initWithTitle:(NSString*)title description:(NSString*)todoDescription priority:(NSInteger)priority;
 

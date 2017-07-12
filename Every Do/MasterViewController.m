@@ -38,7 +38,6 @@
     swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self.todoTableView addGestureRecognizer:swipeGesture];
     self.todoTableView.userInteractionEnabled = YES;
-    
 }
 
 - (NSMutableArray*)setupTodos{

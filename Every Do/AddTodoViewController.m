@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIView *priorityView;
+@property (weak, nonatomic) IBOutlet UIDatePicker *deadlineDatePicker;
 @property (strong, nonatomic) NSArray<UIColor*> *priorityColors;
 
 @end
@@ -23,7 +24,7 @@
     newTodo.title = self.titleTextField.text;
     newTodo.todoDescription = self.descriptionTextView.text;
     newTodo.priority = [self.priorityColors indexOfObject:self.priorityView.backgroundColor];
-    newTodo.isCompleted = NO;
+    newTodo.deadline = [self.deadlineDatePicker date];
     [self.delegate saveNewTodo:newTodo];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -34,9 +35,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.priorityColors = @[[UIColor redColor], [UIColor orangeColor], [UIColor yellowColor], [UIColor greenColor]];
+    self.priorityColors = @[[UIColor greenColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor redColor]];
     
     self.priorityView.backgroundColor = [UIColor greenColor];
+    self.priorityView.layer.cornerRadius = self.priorityView.bounds.size.width/2;
     self.descriptionTextView.layer.borderColor = [UIColor blackColor].CGColor;
     self.descriptionTextView.layer.borderWidth = 1.0;
     
@@ -53,6 +55,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
 
 /*

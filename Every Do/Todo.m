@@ -10,13 +10,26 @@
 
 @implementation Todo
 
+-(instancetype)init
+{
+    self = [super init];
+    if (self){
+        _deadline = [NSDate date];
+        _isCompleted = NO;
+        _priorityColors = @[[UIColor greenColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor redColor]];
+    }
+    return self;
+}
+
 -(instancetype)initWithTitle:(NSString*)title description:(NSString*)todoDescription priority:(NSInteger)priority{
     self = [super init];
     if (self){
         _title = title;
         _todoDescription = todoDescription;
         _priority = priority;
+        _deadline = [NSDate date];
         _isCompleted = NO;
+        _priorityColors = @[[UIColor greenColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor redColor]]; 
     }
     return self;
 }

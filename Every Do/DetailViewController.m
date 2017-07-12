@@ -10,6 +10,10 @@
 #import "Todo.h"
 
 @interface DetailViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *deadlineLabel;
+@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UIView *priorityView;
+@property (weak, nonatomic) IBOutlet UILabel *deadlineTimeLabel;
 
 @end
 
@@ -22,7 +26,7 @@
         _detailItem = newDetailItem;
         
         // Update the view.
-        [self configureView];
+//        [self configureView];
     }
 }
 
@@ -33,7 +37,25 @@
         Todo *todoDetail = self.detailItem;
         self.title = todoDetail.title;
         self.detailDescriptionLabel.text = todoDetail.todoDescription;
-//        self.detailDescriptionLabel.text = [self.detailItem description];
+        NSArray *priorityColors = todoDetail.priorityColors;
+        self.priorityView.backgroundColor = priorityColors[todoDetail.priority];
+        self.priorityView.layer.cornerRadius = self.priorityView.bounds.size.width/2;
+        
+        //Deadline Date
+        NSCalendar *gregorian = [NSCalendar currentCalendar];
+        unsigned dateFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+        NSDateComponents *dateComps = [gregorian components:dateFlags fromDate:todoDetail.deadline];
+        NSDate *dateOnly = [gregorian dateFromComponents:dateComps];
+        dateFlags = NSCalendarUnitHour | NSCalendarUnitMinute;
+        dateComps = [gregorian components:dateFlags fromDate:todoDetail.deadline];
+        NSDate *timeOnly = [gregorian dateFromComponents:dateComps];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterLongStyle];
+        [formatter setTimeStyle:NSDateFormatterNoStyle];
+        self.deadlineLabel.text = [formatter stringFromDate:dateOnly];
+        [formatter setDateFormat:@"HH:mm"];
+        self.deadlineTimeLabel.text = [formatter stringFromDate:timeOnly];
     }
 }
 
@@ -42,6 +64,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+//    self.priorityView.b
 }
 
 

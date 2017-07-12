@@ -47,9 +47,22 @@ static NSString *reuseIdentifier = @"todoCell";
         self.titleLabel.text = self.todo.title;
         self.todoDescriptionLabel.text = self.todo.todoDescription;
     }
-    NSArray<UIColor*>* priorityColors = @[[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor greenColor]];
+    //Priority color
+    NSArray<UIColor*>* priorityColors = self.todo.priorityColors;
     self.priorityView.backgroundColor = priorityColors[self.todo.priority];
     self.priorityView.layer.cornerRadius = 30/2;
+    
+    //Deadline Date
+    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    unsigned dateFlags = NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *dateComps = [gregorian components:dateFlags fromDate:self.todo.deadline];
+    NSDate *dateOnly = [gregorian dateFromComponents:dateComps];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterNoStyle];
+    [formatter setDateFormat:@"MMM dd"];
+    self.deadlineLabel.text = [formatter stringFromDate:dateOnly];
 }
 
 @end
